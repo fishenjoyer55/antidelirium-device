@@ -1,0 +1,91 @@
+#pages {
+    height: 100%;
+}
+.page {
+    position: absolute;
+    display: none;
+    height: 94%;
+    margin-left: 12%;
+    width: 85%;
+}
+
+.page.active {
+    display: block;
+}
+
+html, body {
+    height: 95%;
+}
+
+h1 {
+  font-family: "Garamond";
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  background-color: #f29380;
+  text-align: center;
+  padding: 1.2%;
+  margin: 0.6%;
+}
+
+#sidebar {
+    position: fixed;
+    width: 10%;
+    height: 100%;
+    background-color: #f29380;
+    z-index: 10;
+}
+
+#quicklinkContainer {
+    margin-top: 150%;
+    background-color: aqua;
+}
+
+.quicklink {
+    padding: 3%;
+    text-align: left;
+}
+
+#slideshow {
+    background-color: blue;
+    width: 70%;
+    height: 55%;
+}
+
+#previewContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 3%;
+    margin-top: 1.5%;
+    margin-bottom: 0%;
+    height: 35%;
+}
+
+.preview {
+    flex: 1;
+    padding: 3%;
+    background-color: lightblue;
+    text-align: center;
+}
+
+#userPreview {
+    background-color: grey;
+}
+#analyticsPreview {
+    background-color: purple;
+}
+#infoPreview {
+    background-color: red;
+}
+
+.currentChart {
+    max-width: 30%;
+}
+#motionChart {
+    border-color: gray;
+    border-radius: 1%;
+}
+
+html {
+    background-color: rgb(242, 181, 128);
+}
