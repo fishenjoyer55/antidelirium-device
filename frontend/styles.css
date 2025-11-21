@@ -17,6 +17,10 @@ html, body {
     height: 95%;
 }
 
+html {
+    background-image: url("lib/deliriumTile.png");
+}
+
 h1 {
   font-family: "Garamond";
   font-size: 2rem;
@@ -32,7 +36,7 @@ h1 {
     position: fixed;
     width: 10%;
     height: 100%;
-    background-color: #f29380;
+    background-image: url(lib/darkDeliriumTile.png);
     z-index: 10;
 }
 
@@ -78,12 +82,58 @@ h1 {
     background-color: red;
 }
 
+
 .currentChart {
     max-width: 30%;
+    background-color:rgb(242, 181, 128);
 }
-#motionChart {
-    border-color: gray;
-    border-radius: 1%;
+.pastChart {
+    position: absolute;
+    max-height: 40%;
+    max-width: 55%;
+    left: 40%;
+    top: 60%;
+    background-color: rgb(242, 181, 128);
+}
+#daybreak {
+    position: absolute;
+    top: 77%;
+    left: 33%;
+}
+#dayend {
+    position: absolute;
+    top: 82%;
+    left: 33%;
+}
+#analysisBox {
+    position: absolute;
+    top: 10%;
+    left: 40%;
+    width: 50%;
+    height: 40%;
+    background-color: black;
+}
+#analysis {
+    color: white;
+}
+.btn {
+    z-index: 10;
+    background-color: rgb(23, 19, 43);
+    width: 5%;
+    box-shadow: 0 4px rgb(0, 0, 0);
+}
+.btn:hover {
+    background-color: rgb(38, 44, 54);
+}
+.btn:active {
+    background-color: rgb(38, 44, 54);
+    box-shadow: 0 0px rgb(26, 26, 26);
+    transform: translateY(4px);
+}
+.widget {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px rgb(91, 69, 49);
 }
 
 html {

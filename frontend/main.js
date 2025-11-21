@@ -1,3 +1,5 @@
+let currentMax = 0;
+
 const showPage = hash => {
     const currentPage = document.querySelector(".page.active");
     const newPage = document.querySelector(hash);
@@ -86,7 +88,7 @@ function initAnalyticsPage() {
             datasets: [{
                 label: "Grip strength (KPa)",
                 data: [],
-                borderColor: "blue",
+                borderColor: "rgb(92, 156, 202)",
                 borderWidth: 2,
                 tension: 0.3
             }]
@@ -115,7 +117,7 @@ function initAnalyticsPage() {
         gripData.labels.push(time);
         gripData.datasets[0].data.push(mouseY);
 
-        // keep last 50 points
+        //keep last 50 points
         if (gripData.labels.length > 50) {
             gripData.labels.shift();
             gripData.datasets[0].data.shift();
@@ -123,6 +125,12 @@ function initAnalyticsPage() {
         gripChart.options.scales.x.min = Math.max(time - 50, 0);
         gripChart.options.scales.x.max = time;
         gripChart.update();
+
+        //maxtracker
+        if (mouseY > currentMax) {
+            currentMax = mouseY;
+        }
+
     }, 200);
 
     // window.addEventListener("hashchange", () => {
@@ -169,8 +177,8 @@ function initAnalyticsPage() {
         for (let i = trails.length - 1; i >= 0; i--) {
             const p = trails[i];
             motionCtx.beginPath();
-            p.x -= dx;
-            p.y -= dy;
+            p.x -= 0.5 * dx;
+            p.y -= 0.5 * dy;
             motionCtx.arc(p.x, p.y, 4, 0, Math.PI * 2);
             motionCtx.fillStyle = `rgba(0, 100, 255, ${p.alpha})`;
             motionCtx.fill();
@@ -182,7 +190,7 @@ function initAnalyticsPage() {
         // draw central dot
         motionCtx.beginPath();
         motionCtx.arc(motionCanvas.width/2, motionCanvas.height/2, 6, 0, Math.PI * 2);
-        motionCtx.fillStyle = "blue";
+        motionCtx.fillStyle = "rgb(92, 156, 202)";
         motionCtx.fill();
 
         function drawArrow(x, y, angle, length = 30) {
@@ -190,7 +198,7 @@ function initAnalyticsPage() {
             const x2 = x + Math.cos(angle) * length;
             const y2 = y + Math.sin(angle) * length;
 
-            motionCtx.strokeStyle = "blue";
+            motionCtx.strokeStyle = "rgb(92, 156, 202)";
             motionCtx.lineWidth = 2;
             motionCtx.beginPath();
             motionCtx.moveTo(x, y);
@@ -208,7 +216,7 @@ function initAnalyticsPage() {
                 y2 - headLength * Math.sin(angle + Math.PI/6)
             );
             motionCtx.closePath();
-            motionCtx.fillStyle = "blue";
+            motionCtx.fillStyle = "rgb(92, 156, 202)";
             motionCtx.fill();
         }
 
@@ -218,6 +226,124 @@ function initAnalyticsPage() {
     }
 
     animate();
+
+
+    //strongest of today vs strongest in history ahh
+    const today = new Date().toDateString();
+
+    const postStrongestOfToday = async() => {
+        localStorage.setItem("day", today);
+        await fetch("http://localhost:3000/daily", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({value: currentMax})
+        });
+        fetchAndUpdate();
+        currentMax = 0; //
+    }
+    if (localStorage.getItem("day") !== today) {
+        postStrongestOfToday();
+    }
+
+    //day incrementer
+    document.getElementById("daybreak").addEventListener("click", () => {
+        console.log("posted");
+        postStrongestOfToday()
+    });
+
+    document.getElementById("dayend").addEventListener("click", () => {
+        console.log("wiped");
+        
+    });
+
+    
+    //analysis
+    const analysis = document.getElementById("analysis");
+    let analysisToday;
+    let analysisTrend;
+
+    //past strongest
+    let date = 0;
+
+    const pastCanvas = document.getElementById("pastChart");
+    const pastData = {
+            labels: [],
+            datasets: [{
+                label: "Grip strength (KPa)",
+                data: [],
+                backgroundColor: "rgb(92, 156, 202)",
+                tension: 0.3
+            }]
+        }
+    const pastChart = new Chart(pastCanvas.getContext("2d"), {
+        type: "bar",
+        data: pastData,
+        options: {
+            animation: false,
+            scales: {
+                x: {
+                    type: "category",
+                    title: {display: true, text: "Time (days)"},
+                    min: date - 7,
+                    max: date
+                },
+                y: {
+                    title: {display: true, text: "Maximum grip strength (KPa)"}
+                }
+            }
+        }
+    });
+
+    const fetchAndUpdate = () => {
+        date++;
+        fetch("http://localhost:3000/daily").then(r => r.json()).then(data => {
+            const item = data[data.length - 1];
+                //console.log(item.value);
+                pastData.labels.push(date);
+                pastData.datasets[0].data.push(Number(item.value));
+
+            // okay we don't need this lmao
+            // if (pastData.labels.length > 7) {
+            //     pastData.labels = pastData.labels.slice(-7);
+            //     pastData.datasets[0].data = pastData.datasets[0].data.slice(-7);
+            // }
+            pastChart.options.scales.x.min = Math.max(date - 7, 0);
+            pastChart.options.scales.x.max = date;
+            pastChart.update();
+
+            if (item.value > 800) {
+                analysisToday = "Your maximum grip strength is very healthy today."
+                + "Studies show that light exercise while hospitalized can reduce the recovery time by up to one day."
+                + "Keep this up!";
+            } else if (item.value > 600) {
+                analysisToday = "Your maximum grip strength is healthy today."
+                + "If you feel comfortable, practice strong hand movements to stay active and maintain muscle dexterity.";
+            } else if (item.value > 400) {
+                analysisToday = "Your maximum grip strength is a bit weaker than the average."
+                + "If you feel comfortable, practice hand movements to stay active and maintain muscle dexterity.";
+            } else {
+                analysisToday = "Your maximum grip strength is weaker than the average."
+                + "Try practicing hand exercises to maintain muscle strength and dexterity."
+                + "If you feel your recovery is not going well, alert your care provider and show them this statistic.";
+            }
+
+            let average = 0;
+            for (let i = 0; i < 7; i++) {
+                average += data[data.length - 1 - i].value;
+            }
+            average /= Math.min(7, data.length);
+            if (item.value > average || item.value > 800) {
+                analysisTrend = "You are making excellent progress.";
+            } else if (item.value > average - 50) {
+                analysisTrend = "Your progress is stable. Keep this up!"
+            } else {
+                analysisTrend = "Your grip strength is weakening compared to before. If you need help, alert your care providor and show them this statistic.";
+            }
+
+            analysis.innerHTML = analysisToday + "n" + analysisTrend;
+        });
+    }
+
 }
 
 showPage("#home");

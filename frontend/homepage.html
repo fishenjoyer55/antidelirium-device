@@ -38,24 +38,26 @@
                 </div>
             </div>
             <div id="user" class="page">
-                usering
-                <!-- <iframe
-                src = "https://paperio.site/",
-                width = "900";
-                height = "500",
+                <iframe
+                src = "https://paperio.site/"
+                width = "900"
+                height = "500"
                 frameborder = "0"
-                >
-
-                </iframe> -->
+                sandbox="allow-same-origin allow-scripts">
+                </iframe>
             </div>
             <div id="analytics" class="page">
-                analyticing
-                <div id="currentData">  
-                    <canvas id="motionChart" class="currentChart" width="200"></canvas>
-                    <canvas id="gripChart" class="currentChart" width="100"></canvas>
+                <div id="currentData">
+                    <canvas id="motionChart" class="currentChart widget" width="325" height="160"></canvas>
+                    <canvas id="gripChart" class="currentChart widget" max-width="160" height="130"></canvas>
+                    <canvas id="pastChart" class="pastChart widget" width="80" height="60"></canvas>
+                    <div id="analysisBox" class="widget">
+                        <p id="analysis">No data yet.</p>
+                    </div>
                 </div>
                 <div id="historicalData">
-                
+                <img src="lib/dayIncrement.png" id="daybreak" class="widget btn">
+                <img src="lib/darkDeliriumTile.png" id="dayend" class="widget btn">
                 </div>
             </div>
             <div id="info" class="page">
