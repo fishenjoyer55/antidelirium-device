@@ -133,7 +133,7 @@ function initAnalyticsPage() {
     const interval = setInterval(() => {
         time++;
         gripData.labels.push(time);
-        gripData.datasets[0].data.push(pressure);
+        gripData.datasets[0].data.push(0.1 * (mouseY - 400));
         console.log(pressure);
 
         //keep last 50 points
@@ -331,18 +331,18 @@ function initAnalyticsPage() {
             pastChart.update();
 
             if (item.value > 800) {
-                analysisToday = "Your maximum grip strength is very healthy today."
-                + "Studies show that light exercise while hospitalized can reduce the recovery time by up to one day."
+                analysisToday = "Your maximum grip strength is very healthy today. "
+                + "Studies show that light exercise while hospitalized can reduce the recovery time by up to one day. "
                 + "Keep this up!";
             } else if (item.value > 600) {
-                analysisToday = "Your maximum grip strength is healthy today."
-                + "If you feel comfortable, practice strong hand movements to stay active and maintain muscle dexterity.";
+                analysisToday = "Your maximum grip strength is healthy today. "
+                + "If you feel comfortable, practice strong hand movements to stay active and maintain muscle dexterity. ";
             } else if (item.value > 400) {
-                analysisToday = "Your maximum grip strength is a bit weaker than the average."
+                analysisToday = "Your maximum grip strength is a bit weaker than the average. "
                 + "If you feel comfortable, practice hand movements to stay active and maintain muscle dexterity.";
             } else {
-                analysisToday = "Your maximum grip strength is weaker than the average."
-                + "Try practicing hand exercises to maintain muscle strength and dexterity."
+                analysisToday = "Your maximum grip strength is weaker than the average. "
+                + "Try practicing hand exercises to maintain muscle strength and dexterity. "
                 + "If you feel your recovery is not going well, alert your care provider and show them this statistic.";
             }
 
@@ -359,7 +359,7 @@ function initAnalyticsPage() {
                 analysisTrend = "Your grip strength is weakening compared to before. If you need help, alert your care providor and show them this statistic.";
             }
 
-            analysis.innerHTML = analysisToday + " " + analysisTrend;
+            analysis.innerHTML = analysisToday + "<br>" + analysisTrend;
         });
     }
 
