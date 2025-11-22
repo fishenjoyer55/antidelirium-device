@@ -6,53 +6,69 @@
         <script src="lib/chart.umd.min.js"></script>
     </head>
     <body>
-        <div id="sidebar">
+        <div id="sidebar" class="widget">
             <div id="quicklinkContainer">
-                <p id="homeQuicklink" class="quicklink">Home</p>
-                <p id="userQuicklink" class="quicklink">
+                <p id="homeQuicklink" class="quicklink widget">Home</p>
+                <p id="userQuicklink" class="quicklink widget">
                     User
                 </p>
-                <p id="analyticsQuicklink" class="quicklink">
+                <p id="analyticsQuicklink" class="quicklink widget">
                     Analytics
                 </p>
-                <p id="infoQuicklink" class="quicklink">
-                    Info
+                <p id="infoQuicklink" class="quicklink widget">
+                    Mail
+                </p>
+                <p id="helpQuicklink" class="quicklink widget">
+                    Help
                 </p>
             </div>
         </div>
         <div id="pages">
             <div id="home" class="page active">
-                <h1>ECE198 Group 33 Antidelirium Page</h1>
-                <div id="slideshow">
-        
+                <h1 class="widget">ECE198 Group 33 Antidelirium Page</h1>
+                <div id="topContainer">
+                <div id="titleimg" class="dark widget">
+                    <p id="titletext">Welcome! This webpage should be paired with your remote controller, connected via USB.<br>
+                    When you have confirmed the remote can control your cursor, head to the Demo page.<br>
+                    You can also see Analytics of your data and  Information about the device.<br>
+                    Call for Help to request anything, whether food, support, or medical assistance.</p>
+                </div>
+                <div id="helpPreview" class="preview widget"></div>
                 </div>
                 <div id="previewContainer">
-                    <div id="userPreview" class="preview">
+                    <div id="userPreview" class="preview widget">
 
                     </div>
-                    <div id="analyticsPreview" class="preview">
+                    <div id="analyticsPreview" class="preview widget">
 
                     </div>
-                    <div id="infoPreview" class="preview">
+                    <div id="infoPreview" class="preview widget">
                     </div>
                 </div>
             </div>
             <div id="user" class="page">
+                <div class="dark widget">
+                    <p id="demo">Engaging cognitive stimulation, such as playing games involving<br>hand-eye coordination, is excellent for reducing risk of delirium.</p>
+                </div>
                 <iframe
                 src = "https://paperio.site/"
                 width = "900"
                 height = "500"
                 frameborder = "0"
-                sandbox="allow-same-origin allow-scripts">
+                sandbox="allow-same-origin allow-scripts"
+                class = "widget">
                 </iframe>
             </div>
             <div id="analytics" class="page">
+                <div id="connect" class = "widget">connect here</div>
+                <pre id="output"></pre>
                 <div id="currentData">
                     <canvas id="motionChart" class="currentChart widget" width="325" height="160"></canvas>
                     <canvas id="gripChart" class="currentChart widget" max-width="160" height="130"></canvas>
                     <canvas id="pastChart" class="pastChart widget" width="80" height="60"></canvas>
-                    <div id="analysisBox" class="widget">
-                        <p id="analysis">No data yet.</p>
+                    <div id="analysisBox" class="dark widget">
+                        <p id="analysis">No feedback yet! Check back after a day.</p>
+                        <p id="reference">The grip strength of an average adult is around 60 kPa.</p>
                     </div>
                 </div>
                 <div id="historicalData">
@@ -61,7 +77,26 @@
                 </div>
             </div>
             <div id="info" class="page">
-                infoing
+                <div class="widget">
+                    <p>documentation in a bit</p>
+                </div>
+            </div>
+            <div id="help" class="page">
+                <div>
+                    <div class="request dark widget">
+                        <p class="requestText">Request food</p>
+                    </div>
+                    <div class="request dark widget">
+                        <p class="requestText">Request technical support</p>
+                    </div>
+                    <div class="request dark widget">
+                        <p id="emergency" class="requestText">Medical emergency</p>
+                    </div>
+                    <div class="request dark widget">
+                        <p class="requestText">Request other</p>
+                    </div>
+                    <p>Hospital staff will be with you shortly.</p>
+                </div>
             </div>
         </div>
 

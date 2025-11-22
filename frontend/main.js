@@ -1,4 +1,5 @@
 let currentMax = 0;
+let pressure;
 
 const showPage = hash => {
     const currentPage = document.querySelector(".page.active");
@@ -43,12 +44,12 @@ const showPage = hash => {
 
 window.addEventListener("hashchange", hash => showPage(location.hash || "#home"));
 
-const pageNames = ["home", "user", "analytics", "info"];
+const pageNames = ["home", "user", "analytics", "info", "help"];
 const pages = [];
 pageNames.forEach(name => {
     pages.push(document.getElementById(name));
 });
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 5; i++) {
     if (i != 0) {
         document.getElementById(pageNames[i] + "Preview").addEventListener("click", () => {
             location.hash = "#" + pageNames[i];
@@ -64,12 +65,29 @@ for (let i = 0; i < 4; i++) {
                 case 3:
                     console.log("now on info");
                     break;
+                case 4:
+                    console.log("now on help");
             }
         });
     }
     document.getElementById(pageNames[i] + "Quicklink").addEventListener("click", () => {
         location.hash = "#" + pageNames[i];
         showPage("#" + pageNames[i]);
+        
+            switch (i) {
+                case 1:
+                    console.log("now on user");
+                    break;
+                case 2:
+                    console.log("now on analytics");
+                    initAnalyticsPage();
+                    break;
+                case 3:
+                    console.log("now on info");
+                    break;
+                case 4:
+                    console.log("now on help");
+            }
     });
 }
 
@@ -115,7 +133,8 @@ function initAnalyticsPage() {
     const interval = setInterval(() => {
         time++;
         gripData.labels.push(time);
-        gripData.datasets[0].data.push(mouseY);
+        gripData.datasets[0].data.push(pressure);
+        console.log(pressure);
 
         //keep last 50 points
         if (gripData.labels.length > 50) {
@@ -340,10 +359,29 @@ function initAnalyticsPage() {
                 analysisTrend = "Your grip strength is weakening compared to before. If you need help, alert your care providor and show them this statistic.";
             }
 
-            analysis.innerHTML = analysisToday + "n" + analysisTrend;
+            analysis.innerHTML = analysisToday + " " + analysisTrend;
         });
     }
 
 }
+
+let port;
+document.getElementById("connect").onclick = async () => {
+  port = await navigator.serial.requestPort();
+  await port.open({ baudRate: 9600 });
+
+  const decoder = new TextDecoderStream();
+  port.readable.pipeTo(decoder.writable);
+  const reader = decoder.readable.getReader();
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    if (value) {
+        console.log("value: " + value);
+        pressure = 1024 - value;
+    }
+  }
+};
 
 showPage("#home");

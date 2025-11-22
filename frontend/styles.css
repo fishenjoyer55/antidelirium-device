@@ -18,42 +18,91 @@ html, body {
 }
 
 html {
-    background-image: url("lib/deliriumTile.png");
+    /* background-image: url("lib/deliriumTile.png"); */
+    background-color:rgb(0, 0, 0);
 }
+
 
 h1 {
   font-family: "Garamond";
   font-size: 2rem;
   font-weight: 400;
   line-height: 1.2;
-  background-color: #f29380;
   text-align: center;
   padding: 1.2%;
   margin: 0.6%;
+    color: rgb(242, 181, 128);
+    background-color: black;
+}
+
+p {
+  font-family: "Garamond";
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+  padding: 2.2%;
+  margin: 2.6%;
+  color: rgb(242, 181, 128);
 }
 
 #sidebar {
     position: fixed;
     width: 10%;
-    height: 100%;
-    background-image: url(lib/darkDeliriumTile.png);
+    height: 90%;
+    background-color: black;
+    /* background-image: url(lib/darkDeliriumTile.png); */
     z-index: 10;
 }
 
 #quicklinkContainer {
+    padding: 10%;
     margin-top: 150%;
-    background-color: aqua;
 }
 
 .quicklink {
-    padding: 3%;
+    padding: 10%;
     text-align: left;
+    background-color: rgb(242, 181, 128);
+    color: black;
 }
 
-#slideshow {
-    background-color: blue;
+#emergency {
+    color: red;
+}
+.request {
+    margin: 2%;
+    padding: 1%;
+}
+.requestText {
+    font-size: 1.6em;
+    text-align: center;
+    padding: 0;
+}
+
+#demo {
+    color: rgb(242, 181, 128);
+}
+
+#titleimg {
     width: 70%;
-    height: 55%;
+    height: 50%;
+}
+#titletext {
+    color: rgb(92, 156, 202);
+    line-height: 1.9;
+}
+
+#topContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 3%;
+    margin-top: 1.5%;
+    margin-bottom: 0%;
+}
+
+#helpPreview {
+    background-image: url(lib/helpPreview.png);
 }
 
 #previewContainer {
@@ -68,18 +117,19 @@ h1 {
 .preview {
     flex: 1;
     padding: 3%;
-    background-color: lightblue;
+    background-color: black;
     text-align: center;
+    background-size: cover;
 }
 
 #userPreview {
-    background-color: grey;
+    background-image: url("lib/gamePreview.png");
 }
 #analyticsPreview {
-    background-color: purple;
+    background-image: url("lib/analyticsPreview.png");
 }
 #infoPreview {
-    background-color: red;
+    background-image: url("lib/mailPreview.png");
 }
 
 
@@ -97,13 +147,17 @@ h1 {
 }
 #daybreak {
     position: absolute;
-    top: 77%;
+    top: 76%;
     left: 33%;
 }
 #dayend {
     position: absolute;
-    top: 82%;
+    top: 86%;
     left: 33%;
+}
+.dark {
+   
+    background-image: url(lib/darkDeliriumTile.png);
 }
 #analysisBox {
     position: absolute;
@@ -111,10 +165,14 @@ h1 {
     left: 40%;
     width: 50%;
     height: 40%;
-    background-color: black;
 }
 #analysis {
-    color: white;
+    color: rgb(242, 181, 128);
+}
+#reference {
+    color: rgb(92, 156, 202);
+    position: relative;
+    top: 3%;
 }
 .btn {
     z-index: 10;
