@@ -80,6 +80,12 @@ p {
     padding: 0;
 }
 
+#mailHolder {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
 #demo {
     color: rgb(242, 181, 128);
 }
