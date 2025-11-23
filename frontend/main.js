@@ -330,14 +330,14 @@ function initAnalyticsPage() {
             pastChart.options.scales.x.max = date;
             pastChart.update();
 
-            if (item.value > 800) {
+            if (item.value > 35) {
                 analysisToday = "Your maximum grip strength is very healthy today. "
                 + "Studies show that light exercise while hospitalized can reduce the recovery time by up to one day. "
                 + "Keep this up!";
-            } else if (item.value > 600) {
+            } else if (item.value > 25) {
                 analysisToday = "Your maximum grip strength is healthy today. "
                 + "If you feel comfortable, practice strong hand movements to stay active and maintain muscle dexterity. ";
-            } else if (item.value > 400) {
+            } else if (item.value > 20) {
                 analysisToday = "Your maximum grip strength is a bit weaker than the average. "
                 + "If you feel comfortable, practice hand movements to stay active and maintain muscle dexterity.";
             } else {
@@ -351,9 +351,9 @@ function initAnalyticsPage() {
                 average += data[data.length - 1 - i].value;
             }
             average /= Math.min(7, data.length);
-            if (item.value > average || item.value > 800) {
+            if (item.value > average || item.value > 35) {
                 analysisTrend = "You are making excellent progress.";
-            } else if (item.value > average - 50) {
+            } else if (item.value > average - 7) {
                 analysisTrend = "Your progress is stable. Keep this up!"
             } else {
                 analysisTrend = "Your grip strength is weakening compared to before. If you need help, alert your care providor and show them this statistic.";
